@@ -1,14 +1,14 @@
-import { Ionicons } from "@expo/vector-icons";
+import Ionicons from "@expo/vector-icons/Ionicons";
 import { Tabs } from "expo-router";
 import { useThemeSetting } from "../../context/ThemeContext";
 
 export default function AppTabsLayout() {
-  const { colors, colorScheme } = useThemeSetting();
+  const { colors } = useThemeSetting();
+
   return (
     <Tabs
       screenOptions={{
-        headerStyle: { backgroundColor: colors.card },
-        headerTintColor: colors.text,
+        headerShown: false,
         tabBarStyle: { backgroundColor: colors.card },
         tabBarActiveTintColor: colors.tint,
         tabBarInactiveTintColor: colors.text + "88",
@@ -26,11 +26,11 @@ export default function AppTabsLayout() {
         }}
       />
       <Tabs.Screen
-        name="favourites"
+        name="saved"
         options={{
-          title: "Favourites",
+          title: "Saved",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="heart" size={size} color={color} />
+            <Ionicons name="bookmark" size={size} color={color} />
           ),
         }}
       />

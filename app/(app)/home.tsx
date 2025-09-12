@@ -1,18 +1,19 @@
-import { Text, View } from "react-native";
+import { Text } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { useThemeSetting } from "../../context/ThemeContext";
 
 export default function HomeScreen() {
   const { colors } = useThemeSetting();
+
   return (
-    <View
+    <SafeAreaView
       style={{
         flex: 1,
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: colors.background,
       }}
     >
       <Text style={{ color: colors.text }}>Home (empty)</Text>
-    </View>
+    </SafeAreaView>
   );
 }

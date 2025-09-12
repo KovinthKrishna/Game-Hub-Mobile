@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import { useThemeSetting } from "../../context/ThemeContext";
 
-export default function FavouritesScreen() {
+export default function SavedScreen() {
   const { colors } = useThemeSetting();
   return (
     <View
@@ -12,7 +12,7 @@ export default function FavouritesScreen() {
         backgroundColor: colors.background,
       }}
     >
-      <Text style={{ color: colors.text }}>Favourites (empty)</Text>
+      <Text style={{ color: colors.text }}>Saved (empty)</Text>
     </View>
   );
 }
