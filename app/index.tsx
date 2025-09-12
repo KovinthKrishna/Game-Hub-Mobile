@@ -1,6 +1,9 @@
-import { Text, View } from "react-native";
+import { useThemeSetting } from "@/context/ThemeContext";
+import { ActivityIndicator, View } from "react-native";
 
 export default function Index() {
+  const { colors } = useThemeSetting();
+
   return (
     <View
       style={{
@@ -9,7 +12,7 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <ActivityIndicator size="large" color={colors.tint} />
     </View>
   );
 }
