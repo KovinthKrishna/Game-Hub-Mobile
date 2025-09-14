@@ -1,3 +1,4 @@
+import { GameQueryProvider } from "@/context/GameQueryContext";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
@@ -37,7 +38,9 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <RootNavigation />
+        <GameQueryProvider>
+          <RootNavigation />
+        </GameQueryProvider>
       </AuthProvider>
     </ThemeProvider>
   );

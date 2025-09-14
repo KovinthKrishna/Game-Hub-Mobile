@@ -6,14 +6,8 @@ export default function HomeScreen() {
   const { colors } = useThemeSetting();
 
   return (
-    <SafeAreaView
-      style={{
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <Text style={{ color: colors.text }}>Home (empty)</Text>
+    <SafeAreaView style={{ flex: 1, padding: 20 }}>
+      <Text style={{ color: colors.text, fontSize: 24 }}>Welcome!</Text>
     </SafeAreaView>
   );
 }
