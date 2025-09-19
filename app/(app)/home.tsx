@@ -1,5 +1,6 @@
 import logo from "@/assets/images/logo.webp";
 import GameCard from "@/components/GameCard";
+import GamePageNavigator from "@/components/GamePageNavigator";
 import { useGameQuery } from "@/context/GameQueryContext";
 import useGames from "@/hooks/useGames";
 import { Image } from "expo-image";
@@ -52,6 +53,9 @@ export default function HomeScreen() {
               </Text>
               <Image source={logo} style={{ width: 48, aspectRatio: 1 / 1 }} />
             </View>
+          }
+          ListFooterComponent={
+            <GamePageNavigator next={games?.next} previous={games?.previous} />
           }
           ListEmptyComponent={
             <Text style={{ color: colors.text }}>No games found</Text>

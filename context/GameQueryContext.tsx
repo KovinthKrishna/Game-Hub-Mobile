@@ -6,7 +6,8 @@ interface GameQueryContextValue {
   setGenreId: (genreId: number) => void;
   setPlatformId: (platformId: number) => void;
   setSortOrder: (sortOrder: string) => void;
-  setPage: (page: number) => void;
+  decrementPage: () => void;
+  incrementPage: () => void;
 }
 
 const GameQueryContext = createContext<GameQueryContextValue>(
@@ -28,7 +29,11 @@ export const GameQueryProvider = ({ children }: { children: ReactNode }) => {
   const setSortOrder = (sortOrder: string) =>
     setGameQuery({ ...gameQuery, sortOrder, page: 1 });
 
-  const setPage = (page: number) => setGameQuery({ ...gameQuery, page });
+  const decrementPage = () =>
+    setGameQuery({ ...gameQuery, page: gameQuery.page - 1 });
+
+  const incrementPage = () =>
+    setGameQuery({ ...gameQuery, page: gameQuery.page + 1 });
 
   const value: GameQueryContextValue = {
     gameQuery,
@@ -36,7 +41,8 @@ export const GameQueryProvider = ({ children }: { children: ReactNode }) => {
     setGenreId,
     setPlatformId,
     setSortOrder,
-    setPage,
+    decrementPage,
+    incrementPage,
   };
 
   return (
