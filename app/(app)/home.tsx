@@ -1,9 +1,8 @@
-import logo from "@/assets/images/logo.webp";
 import GameCard from "@/components/GameCard";
+import GameHeaderComponent from "@/components/GameHeaderComponent";
 import GamePageNavigator from "@/components/GamePageNavigator";
 import { useGameQuery } from "@/context/GameQueryContext";
 import useGames from "@/hooks/useGames";
-import { Image } from "expo-image";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useThemeSetting } from "../../context/ThemeContext";
@@ -33,32 +32,19 @@ export default function HomeScreen() {
       {!loading && !error && (
         <FlatList
           contentContainerStyle={{ gap: 24, paddingBottom: 48 }}
-          data={games?.results ?? []}
-          keyExtractor={(item) => String(item.id)}
+          data={games?.results}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => <GameCard game={item} />}
           showsVerticalScrollIndicator={false}
-          style={{ marginTop: 24 }}
-          ListHeaderComponent={
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              <Text
-                style={{ color: colors.text, fontSize: 24, fontWeight: "600" }}
-              >
-                Welcome!
-              </Text>
-              <Image source={logo} style={{ width: 48, aspectRatio: 1 / 1 }} />
-            </View>
-          }
+          style={{ marginTop: 24, width: "100%" }}
+          ListHeaderComponent={<GameHeaderComponent />}
           ListFooterComponent={
             <GamePageNavigator next={games?.next} previous={games?.previous} />
           }
           ListEmptyComponent={
-            <Text style={{ color: colors.text }}>No games found</Text>
+            <Text style={{ color: colors.text, textAlign: "center" }}>
+              No games found
+            </Text>
           }
         />
       )}

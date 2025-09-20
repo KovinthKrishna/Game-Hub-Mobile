@@ -1,5 +1,6 @@
 import useData from "./useData";
 
-const usePlatforms = () => useData<Platform>("/platforms/lists/parents");
+const usePlatforms = () =>
+  useData<ListResponse<Platform>>("/platforms/lists/parents");
 
 export default usePlatforms;

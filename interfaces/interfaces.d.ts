@@ -10,6 +10,11 @@ interface Platform {
   slug: string;
 }
 
+interface SortOrder {
+  id: string;
+  name: string;
+}
+
 interface Game {
   id: number;
   name: string;
@@ -20,9 +25,9 @@ interface Game {
 }
 
 interface GameQuery {
-  genreId?: number;
-  platformId?: number;
-  sortOrder?: string;
+  genre?: Genre;
+  platform?: Platform;
+  sortOrder: SortOrder;
   searchText?: string;
   page: number;
 }

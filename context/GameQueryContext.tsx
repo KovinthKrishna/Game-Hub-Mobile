@@ -1,11 +1,12 @@
+import sortOrders from "@/data/sortOrders";
 import { createContext, ReactNode, useContext, useState } from "react";
 
 interface GameQueryContextValue {
   gameQuery: GameQuery;
   setSearchText: (searchText: string) => void;
-  setGenreId: (genreId: number) => void;
-  setPlatformId: (platformId: number) => void;
-  setSortOrder: (sortOrder: string) => void;
+  setGenre: (genre?: Genre) => void;
+  setPlatform: (platform?: Platform) => void;
+  setSortOrder: (sortOrder?: SortOrder) => void;
   decrementPage: () => void;
   incrementPage: () => void;
 }
@@ -15,19 +16,26 @@ const GameQueryContext = createContext<GameQueryContextValue>(
 );
 
 export const GameQueryProvider = ({ children }: { children: ReactNode }) => {
-  const [gameQuery, setGameQuery] = useState<GameQuery>({ page: 1 });
+  const [gameQuery, setGameQuery] = useState<GameQuery>({
+    sortOrder: sortOrders[0],
+    page: 1,
+  });
 
   const setSearchText = (searchText: string) =>
     setGameQuery({ ...gameQuery, searchText, page: 1 });
 
-  const setGenreId = (genreId: number) =>
-    setGameQuery({ ...gameQuery, genreId, page: 1 });
+  const setGenre = (genre?: Genre) =>
+    setGameQuery({ ...gameQuery, genre, page: 1 });
 
-  const setPlatformId = (platformId: number) =>
-    setGameQuery({ ...gameQuery, platformId, page: 1 });
+  const setPlatform = (platform?: Platform) =>
+    setGameQuery({ ...gameQuery, platform, page: 1 });
 
-  const setSortOrder = (sortOrder: string) =>
-    setGameQuery({ ...gameQuery, sortOrder, page: 1 });
+  const setSortOrder = (sortOrder?: SortOrder) =>
+    setGameQuery({
+      ...gameQuery,
+      sortOrder: sortOrder || sortOrders[0],
+      page: 1,
+    });
 
   const decrementPage = () =>
     setGameQuery({ ...gameQuery, page: gameQuery.page - 1 });
@@ -38,8 +46,8 @@ export const GameQueryProvider = ({ children }: { children: ReactNode }) => {
   const value: GameQueryContextValue = {
     gameQuery,
     setSearchText,
-    setGenreId,
-    setPlatformId,
+    setGenre,
+    setPlatform,
     setSortOrder,
     decrementPage,
     incrementPage,

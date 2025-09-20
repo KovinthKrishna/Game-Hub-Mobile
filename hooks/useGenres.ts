@@ -1,5 +1,5 @@
 import useData from "./useData";
 
-const useGenre = () => useData<Genre>("/genres");
+const useGenres = () => useData<ListResponse<Genre>>("/genres");
 
-export default useGenre;
+export default useGenres;
