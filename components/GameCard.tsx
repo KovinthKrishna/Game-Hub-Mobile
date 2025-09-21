@@ -36,7 +36,7 @@ const GameCard = ({ game }: { game: Game }) => {
           }}
         >
           <PlatformIconList
-            platforms={game.parent_platforms.map((p) => p.platform)}
+            platforms={game.parent_platforms?.map((p) => p.platform)}
             color={colors.text}
           />
           <CriticScore score={game.metacritic} />

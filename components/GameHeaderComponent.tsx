@@ -4,6 +4,7 @@ import { Image } from "expo-image";
 import { Text, View } from "react-native";
 import GenreSelector from "./GenreSelector";
 import PlatformSelector from "./PlatformSelector";
+import SearchInput from "./SearchInput";
 import SortSelector from "./SortSelector";
 
 const GameHeaderComponent = () => {
@@ -26,6 +27,7 @@ const GameHeaderComponent = () => {
       <GenreSelector />
       <PlatformSelector />
       <SortSelector />
+      <SearchInput />
     </View>
   );
 };

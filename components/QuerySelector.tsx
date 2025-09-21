@@ -1,18 +1,14 @@
 import { useThemeSetting } from "@/context/ThemeContext";
 import { Feather } from "@expo/vector-icons";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   FlatList,
+  LayoutRectangle,
   Modal,
   Pressable,
-  StyleSheet,
   Text,
   View,
 } from "react-native";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
 
 interface Props<T> {
   data: T[];
@@ -30,9 +26,11 @@ const QuerySelector = <T extends { id: number | string; name: string }>({
   onSelectItem,
 }: Props<T>) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [buttonLayout, setButtonLayout] = useState<LayoutRectangle | null>(
+    null
+  );
+  const buttonRef = useRef<View>(null);
   const { colors } = useThemeSetting();
-  const { top } = useSafeAreaInsets();
-  const styles = getStyles(colors, top);
 
   if (error) return null;
 
@@ -41,10 +39,38 @@ const QuerySelector = <T extends { id: number | string; name: string }>({
     setModalVisible(false);
   };
 
+  const handleOpenModal = () => {
+    buttonRef.current?.measure((_x, _y, width, height, pageX, pageY) => {
+      setButtonLayout({ x: pageX, y: pageY, width, height });
+      setModalVisible(true);
+    });
+  };
+
   return (
     <View>
-      <Pressable style={styles.button} onPress={() => setModalVisible(true)}>
-        <Text style={styles.buttonText}>
+      <Pressable
+        style={{
+          flexDirection: "row",
+          alignItems: "center",
+          backgroundColor: colors.card,
+          height: 40,
+          minWidth: 160,
+          paddingHorizontal: 16,
+          borderRadius: 8,
+          justifyContent: "space-between",
+        }}
+        ref={buttonRef}
+        onPress={handleOpenModal}
+        onLayout={(e) => {
+          setButtonLayout(e.nativeEvent.layout);
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 16,
+            color: colors.text,
+          }}
+        >
           {selectedItem?.name || placeholder}
         </Text>
         <Feather name="chevron-down" size={20} color={colors.text} />
@@ -57,17 +83,37 @@ const QuerySelector = <T extends { id: number | string; name: string }>({
         onRequestClose={() => setModalVisible(false)}
       >
         <Pressable
-          style={styles.modalOverlay}
+          style={{
+            flex: 1,
+          }}
           onPress={() => setModalVisible(false)}
         >
-          <SafeAreaView style={styles.modalContent}>
+          <View
+            style={{
+              position: "absolute",
+              top: buttonLayout ? buttonLayout.y + buttonLayout.height + 6 : 0,
+              left: buttonLayout ? buttonLayout.x : 0,
+              width: buttonLayout ? buttonLayout.width : 0,
+              backgroundColor: colors.card,
+              borderRadius: 12,
+              borderWidth: 2,
+              borderColor: colors.border,
+              maxHeight: 400,
+              paddingHorizontal: 12,
+              paddingVertical: 8,
+            }}
+          >
             <FlatList
               data={data}
               showsVerticalScrollIndicator={false}
               keyExtractor={(item) => item.id.toString()}
               renderItem={({ item }) => (
                 <Pressable
-                  style={styles.menuItem}
+                  style={{
+                    padding: 12,
+                    borderBottomWidth: 2,
+                    borderBottomColor: colors.border,
+                  }}
                   onPress={() => handleSelectItem(item)}
                   disabled={
                     (item.id === 0 && !selectedItem) ||
@@ -78,60 +124,11 @@ const QuerySelector = <T extends { id: number | string; name: string }>({
                 </Pressable>
               )}
             />
-          </SafeAreaView>
+          </View>
         </Pressable>
       </Modal>
     </View>
   );
 };
-
-const getStyles = (
-  colors: {
-    background: string;
-    text: string;
-    card: string;
-    border: string;
-    tint: string;
-  },
-  top: number
-) =>
-  StyleSheet.create({
-    button: {
-      flexDirection: "row",
-      alignItems: "center",
-      backgroundColor: colors.card,
-      height: 40,
-      minWidth: 160,
-      paddingHorizontal: 16,
-      borderRadius: 8,
-      justifyContent: "space-between",
-    },
-    buttonText: {
-      fontSize: 16,
-      color: colors.text,
-    },
-    modalOverlay: {
-      flex: 1,
-      justifyContent: "flex-start",
-      alignItems: "center",
-      paddingHorizontal: 24,
-    },
-    modalContent: {
-      backgroundColor: colors.card,
-      borderRadius: 12,
-      borderWidth: 2,
-      borderColor: colors.border,
-      width: "100%",
-      maxHeight: "60%",
-      paddingHorizontal: 12,
-      paddingVertical: 8,
-      marginTop: top + 80,
-    },
-    menuItem: {
-      padding: 12,
-      borderBottomWidth: 2,
-      borderBottomColor: colors.border,
-    },
-  });
 
 export default QuerySelector;

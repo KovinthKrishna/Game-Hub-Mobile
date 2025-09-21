@@ -3,7 +3,7 @@ import { createContext, ReactNode, useContext, useState } from "react";
 
 interface GameQueryContextValue {
   gameQuery: GameQuery;
-  setSearchText: (searchText: string) => void;
+  setSearchText: (searchText?: string) => void;
   setGenre: (genre?: Genre) => void;
   setPlatform: (platform?: Platform) => void;
   setSortOrder: (sortOrder?: SortOrder) => void;
@@ -21,7 +21,7 @@ export const GameQueryProvider = ({ children }: { children: ReactNode }) => {
     page: 1,
   });
 
-  const setSearchText = (searchText: string) =>
+  const setSearchText = (searchText?: string) =>
     setGameQuery({ ...gameQuery, searchText, page: 1 });
 
   const setGenre = (genre?: Genre) =>

@@ -39,7 +39,7 @@ const PlatformIconList = ({ platforms, color, size = 18, gap = 6 }: Props) => {
 
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap }}>
-      {platforms.map((p) => {
+      {platforms?.map((p) => {
         const IconComp = icons[p.slug];
         const name = names[p.slug];
         if (!IconComp || !name) return null;
