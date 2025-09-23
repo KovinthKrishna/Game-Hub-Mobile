@@ -1,3 +1,9 @@
+interface UserDetails {
+  uid: string;
+  firstName: string;
+  lastName: string;
+}
+
 interface Genre {
   id: number;
   name: string;

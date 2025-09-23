@@ -16,6 +16,8 @@ import { useThemeSetting } from "../../context/ThemeContext";
 export default function RegisterScreen() {
   const { register } = useAuth();
   const { colors } = useThemeSetting();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -24,13 +26,13 @@ export default function RegisterScreen() {
   const styles = getAuthStyles(colors, loading);
 
   const onSubmit = async () => {
-    if (!email || !password)
-      return Alert.alert("Error", "Email and password required");
+    if (!firstName || !lastName || !email || !password)
+      return Alert.alert("Error", "All fields are required");
     if (password !== confirm)
       return Alert.alert("Error", "Passwords do not match");
     setLoading(true);
     try {
-      await register(email.trim(), password);
+      await register(firstName.trim(), lastName.trim(), email.trim(), password);
     } catch (e: any) {
       Alert.alert("Registration failed", e.message);
     } finally {
@@ -41,6 +43,20 @@ export default function RegisterScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Create Account</Text>
+      <TextInput
+        placeholder="First Name"
+        placeholderTextColor={colors.text + "88"}
+        style={styles.input}
+        value={firstName}
+        onChangeText={setFirstName}
+      />
+      <TextInput
+        placeholder="Last Name"
+        placeholderTextColor={colors.text + "88"}
+        style={styles.input}
+        value={lastName}
+        onChangeText={setLastName}
+      />
       <TextInput
         placeholder="Email"
         placeholderTextColor={colors.text + "88"}
