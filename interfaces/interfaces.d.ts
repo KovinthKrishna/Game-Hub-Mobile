@@ -1,3 +1,11 @@
+interface Colors {
+  background: string;
+  text: string;
+  card: string;
+  border: string;
+  tint: string;
+}
+
 interface UserDetails {
   uid: string;
   firstName: string;

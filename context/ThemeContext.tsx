@@ -16,13 +16,7 @@ interface ThemeContextValue {
   colorScheme: "light" | "dark";
   setSetting: (value: ThemeSetting) => void;
   cycleSetting: () => void;
-  colors: {
-    background: string;
-    text: string;
-    card: string;
-    border: string;
-    tint: string;
-  };
+  colors: Colors;
 }
 
 const STORAGE_KEY = "game-hub-theme";

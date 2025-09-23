@@ -1,8 +1,12 @@
 import {
   createUserWithEmailAndPassword,
+  EmailAuthProvider,
   onAuthStateChanged,
+  reauthenticateWithCredential,
   signInWithEmailAndPassword,
   signOut,
+  updateEmail,
+  updatePassword,
   User,
 } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
@@ -27,6 +31,12 @@ interface AuthContextValue {
     password: string
   ) => Promise<void>;
   logout: () => Promise<void>;
+  updateProfileDetails: (firstName: string, lastName: string) => Promise<void>;
+  changeEmail: (newEmail: string, currentPassword: string) => Promise<void>;
+  changePassword: (
+    currentPassword: string,
+    newPassword: string
+  ) => Promise<void>;
 }
 
 const db = getFirestore();
@@ -84,9 +94,58 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     await signOut(auth);
   };
 
+  const updateProfileDetails = async (firstName: string, lastName: string) => {
+    if (!user) throw new Error("No authenticated user");
+    await setDoc(
+      doc(db, "users", user.uid),
+      {
+        firstName,
+        lastName,
+      },
+      { merge: true }
+    );
+    setUserDetails((prev) => {
+      if (!prev) return null;
+      return { ...prev, firstName, lastName };
+    });
+  };
+
+  const changeEmail = async (newEmail: string, currentPassword: string) => {
+    if (!user || !user.email) throw new Error("No authenticated user");
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    );
+    await reauthenticateWithCredential(user, credential);
+    await updateEmail(user, newEmail);
+  };
+
+  const changePassword = async (
+    currentPassword: string,
+    newPassword: string
+  ) => {
+    if (!user || !user.email) throw new Error("No authenticated user");
+    const credential = EmailAuthProvider.credential(
+      user.email,
+      currentPassword
+    );
+    await reauthenticateWithCredential(user, credential);
+    await updatePassword(user, newPassword);
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, userDetails, loading, login, register, logout }}
+      value={{
+        user,
+        userDetails,
+        loading,
+        login,
+        register,
+        logout,
+        updateProfileDetails,
+        changeEmail,
+        changePassword,
+      }}
     >
       {children}
     </AuthContext.Provider>

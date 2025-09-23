@@ -30,6 +30,8 @@ export default function RegisterScreen() {
       return Alert.alert("Error", "All fields are required");
     if (password !== confirm)
       return Alert.alert("Error", "Passwords do not match");
+    if (password.length < 8)
+      return Alert.alert("Error", "Password should be at least 8 characters");
     setLoading(true);
     try {
       await register(firstName.trim(), lastName.trim(), email.trim(), password);

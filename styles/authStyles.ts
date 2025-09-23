@@ -1,15 +1,6 @@
 import { StyleSheet } from "react-native";
 
-const getAuthStyles = (
-  colors: {
-    background: string;
-    text: string;
-    card: string;
-    border: string;
-    tint: string;
-  },
-  loading: boolean
-) =>
+const getAuthStyles = (colors: Colors, loading: boolean) =>
   StyleSheet.create({
     container: {
       flex: 1,
