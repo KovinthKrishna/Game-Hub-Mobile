@@ -44,6 +44,11 @@ const ChangePasswordSection = ({ styles }: { styles: Styles }) => {
         "Validation",
         "New password should be at least 8 characters"
       );
+    if (newPassword === currentPassword)
+      return Alert.alert(
+        "Validation",
+        "New password must be different from current password"
+      );
     try {
       setPasswordUpdating(true);
       await changePassword(currentPassword, newPassword);

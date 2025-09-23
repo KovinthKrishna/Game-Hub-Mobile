@@ -34,6 +34,8 @@ const EmailSection = ({ styles }: { styles: Styles }) => {
   const onUpdateEmail = async () => {
     if (!email || !currentPasswordForEmail)
       return Alert.alert("Validation", "Email and current password required");
+    if (email === user?.email)
+      return Alert.alert("Validation", "New email must be different");
     try {
       setEmailUpdating(true);
       await changeEmail(email.trim(), currentPasswordForEmail);
