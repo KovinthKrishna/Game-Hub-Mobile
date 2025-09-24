@@ -1,3 +1,4 @@
+import { FavoritesProvider } from "@/context/FavoritesContext";
 import { GameQueryProvider } from "@/context/GameQueryContext";
 import { Stack, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -38,9 +39,11 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <AuthProvider>
-        <GameQueryProvider>
-          <RootNavigation />
-        </GameQueryProvider>
+        <FavoritesProvider>
+          <GameQueryProvider>
+            <RootNavigation />
+          </GameQueryProvider>
+        </FavoritesProvider>
       </AuthProvider>
     </ThemeProvider>
   );

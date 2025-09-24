@@ -4,6 +4,7 @@ import { Image } from "expo-image";
 import { Pressable, Text, View } from "react-native";
 import CriticScore from "./CriticScore";
 import Emoji from "./Emoji";
+import FavoriteButton from "./FavoriteButton";
 import PlatformIconList from "./PlatformIconList";
 
 const GameCard = ({ game }: { game: Game }) => {
@@ -20,11 +21,16 @@ const GameCard = ({ game }: { game: Game }) => {
         borderColor: colors.border,
       }}
     >
-      <Image
-        source={getCroppedImageUrl(game.background_image)}
-        style={{ width: "100%", aspectRatio: 6 / 4 }}
-        contentFit="cover"
-      />
+      <View>
+        <Image
+          source={getCroppedImageUrl(game.background_image)}
+          style={{ width: "100%", aspectRatio: 6 / 4 }}
+          contentFit="cover"
+        />
+        <View style={{ position: "absolute", top: 8, right: 8 }}>
+          <FavoriteButton gameId={game.id} />
+        </View>
+      </View>
 
       <View style={{ padding: 12 }}>
         <View
