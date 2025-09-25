@@ -17,6 +17,7 @@ const CriticScore = ({ score }: Props) => {
         paddingHorizontal: 8,
         paddingVertical: 2,
         borderRadius: 6,
+        alignSelf: "flex-start",
       }}
     >
       <Text style={{ color, fontWeight: "600", fontSize: 14 }}>{score}</Text>
