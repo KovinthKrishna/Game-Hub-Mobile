@@ -42,7 +42,9 @@ export default function HomeScreen() {
             <GamePageNavigator next={games?.next} previous={games?.previous} />
           }
           ListEmptyComponent={
-            <Text style={{ color: colors.text, textAlign: "center" }}>
+            <Text
+              style={{ color: colors.text, textAlign: "center", fontSize: 18 }}
+            >
               No games found
             </Text>
           }
