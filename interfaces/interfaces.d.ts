@@ -55,3 +55,17 @@ interface ListResponse<T> {
   previous: string | null;
   results: T[];
 }
+
+interface Screenshot {
+  id: number;
+  image: string;
+  width: number;
+  height: number;
+}
+
+interface Trailer {
+  id: number;
+  name: string;
+  preview: string;
+  data: { 480: string; max: string };
+}
