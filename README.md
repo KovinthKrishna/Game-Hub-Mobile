@@ -1,50 +1,116 @@
-# Welcome to your Expo app 👋
+# Game Hub (Mobile)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+A responsive cross‑platform (iOS / Android / Web) mobile application for discovering, filtering, and exploring video games. Built with Expo (React Native), TypeScript, and modern navigation + animation tooling. This repository contains the mobile version of the project.
 
-## Get started
+> If you are looking for the web version, it is available here:  
+> **Web App Repository:** [Game-Hub-Web](https://github.com/KovinthKrishna/Game-Hub-Web)
 
-1. Install dependencies
+---
 
-   ```bash
-   npm install
-   ```
+## Features
 
-2. Start the app
+- Browse games with mobile-optimized UI and smooth navigation
+- Filter and search functionality
+- Theming and system color scheme support
+- Persistent local storage for user preferences (Async Storage)
+- API-driven data layer (Axios abstraction)
+- Firebase integration (authentication / services as configured)
+- Strongly typed with TypeScript
+- Built using Expo Router for file-based navigation
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## Technologies used
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+| Layer            | Technology                       |
+| ---------------- | -------------------------------- |
+| Framework        | React Native (Expo) + TypeScript |
+| Navigation       | Expo Router                      |
+| Build/Runtime    | Expo                             |
+| HTTP Client      | Axios                            |
+| Icons            | @expo/vector-icons               |
+| State/Storage    | React hooks + Async Storage      |
+| Backend Services | Firebase                         |
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## Environment Variables
 
-When you're ready, run:
+The project uses Expo. To safely expose variables to the app at runtime, prefix them with `EXPO_PUBLIC_`.
+
+Create a .env (or .env.local) in the project root.
+
+### Expected Variables
+
+| Variable                                   | Description                    | Example                |
+| ------------------------------------------ | ------------------------------ | ---------------------- |
+| `EXPO_PUBLIC_RAWG_API_KEY`                 | API key for RAWG game database | `your_api_key_here`    |
+| `EXPO_PUBLIC_FIREBASE_API_KEY`             | Firebase API key               | `xxxxxxxxxxxxxxxxxxxx` |
+| `EXPO_PUBLIC_FIREBASE_PROJECT_ID`          | Firebase project ID            | `yourapp`              |
+| `EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID` | Firebase sender ID             | `1234567890`           |
+| `EXPO_PUBLIC_FIREBASE_APP_ID`              | Firebase app ID                | `1:123:web:abc123`     |
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (LTS recommended)
+- npm / yarn / pnpm
+
+Confirm versions:
 
 ```bash
-npm run reset-project
+node -v
+npm -v
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Installation
 
-## Learn more
+```bash
+git clone https://github.com/KovinthKrishna/Game-Hub-Mobile.git
+cd Game-Hub-Mobile
+npm install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### Configure Environment
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Create a `.env` and add required variables (see [Environment Variables](#environment-variables)).
 
-## Join the community
+### Running in Development
 
-Join our community of developers creating universal apps.
+```bash
+npm start
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Then:
+
+- Press `a` for Android emulator
+- Press `i` for iOS simulator
+- Scan the QR code in Expo Go (on a physical device)
+
+---
+
+## Project Structure
+
+```
+.
+├── app/                    # Expo Router entry + route segments
+├── components/             # Reusable UI components
+├── context/                # React context providers (e.g., theme, auth, settings)
+├── services/               # API client
+├── hooks/                  # Custom hooks
+├── interfaces/             # TypeScript interfaces
+├── utils/                  # Helper utilities
+├── firebaseConfig.ts
+├── app.json
+├── tsconfig.json
+├── declarations.d.ts
+├── package.json
+```
+
+## Web Version
+
+This is the mobile implementation of Game Hub.  
+Looking for the web experience? Visit the companion repository: [Game-Hub-Web](https://github.com/KovinthKrishna/Game-Hub-Web)
